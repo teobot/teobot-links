@@ -1,11 +1,9 @@
-:root {
-  /* CSS HEX */
-  --timberwolf: #d1d1d1ff;
+/* CSS HEX */
+/* --timberwolf: #d1d1d1ff;
   --eerie-black: #222222ff;
   --rose-quartz: #ad959dff;
   --white: #fefefeff;
-  --night: #111111ff;
-}
+  --night: #111111ff; */
 
 * {
   box-sizing: border-box;
@@ -17,6 +15,7 @@ html,
 body {
   max-width: 100vw;
   overflow-x: hidden;
+  background-color: #101418;
 }
 a {
   color: inherit;

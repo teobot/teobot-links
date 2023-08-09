@@ -1,14 +1,34 @@
+
+export enum LinkTypes {
+  COLOURS,
+  DRAWING,
+  HELPER
+}
+
 interface ILink {
-  href: string;
   title: string;
+  description: string;
+  href: string;
+  image?: string;
+  tags: string[];
+  type: LinkTypes;
 }
 
 export class Link implements ILink {
-  href: string;
   title: string;
+  description: string;
+  href: string;
+  image?: string;
+  tags: string[];
+  type: LinkTypes;
 
   constructor(link: ILink) {
-    this.href = link.href;
     this.title = link.title;
+    this.description = link.description;
+    this.image = link.image;
+    this.href = link.href;
+    this.tags = link.tags;
+    this.type = link.type;
   }
+
 }
