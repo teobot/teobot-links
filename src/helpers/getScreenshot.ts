@@ -17,6 +17,8 @@ export const getScreenshot = async (href: string) => {
 
     await page.waitForNetworkIdle();
 
+    await page.waitForTimeout(2000);
+
     const image = await page.screenshot({
         encoding: "base64",
         type: "jpeg",
