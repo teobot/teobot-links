@@ -1,33 +1,72 @@
+// react
+import { useContext } from "react";
+
+// next
+import Image from "next/image";
+
+// hooks
+import { ModalContext } from "@/hooks/useModal";
+
+// models
 import { Link } from "@/models/link.model";
 
-// import css
-import styles from "./LinkCard.module.css";
-
-import Image from "react-bootstrap/Image";
+// mui
+import Card from "@mui/joy/Card";
+import Typography from "@mui/joy/Typography";
+import OpenInNewIcon from "@mui/icons-material/OpenInNew";
+import { Button, Sheet } from "@mui/joy";
+import Chip from "@mui/joy/Chip";
+import Box from "@mui/joy/Box";
 
 type LinkCardProps = { link: Link };
 
+const IMAGE_SIZE = 300;
+const RATIO = [16, 9];
+
 const LinkCard = ({ link }: LinkCardProps) => {
+  const { openModal } = useContext(ModalContext);
+
+  const openHref = () => {
+    //: open link in new tab
+    window.open(link.href, "_blank");
+  };
+
   return (
-    <div
-      className="card p-3 shadow mb-3"
-      style={{
-        backgroundColor: "#222222ff",
-        aspectRatio: 4 / 1,
-        width: 450,
-        height: "auto",
+    <Card
+      variant="outlined"
+      sx={{
+        maxWidth: "min-content",
+        height: "min-content",
+        float: "left",
       }}
     >
       <Image
-        src={link.image}
+        style={{ cursor: "pointer" }}
+        onClick={() => openModal(link)}
+        src={link.image as string}
         alt={link.title}
-        width={"100%"}
-        className="rounded"
+        width={IMAGE_SIZE}
+        height={(IMAGE_SIZE / RATIO[0]) * RATIO[1]}
       />
-      <div className="py-2 mb-0 pb-0">
-        <h3 className="m-0 p-0">{link.title}</h3>
-      </div>
-    </div>
+      <Sheet
+        sx={{
+          display: "flex",
+          flexDirection: "col",
+          justifyContent: "space-between",
+        }}
+      >
+        <Typography level="title-lg">{link.title}</Typography>
+        <Button
+          aria-label="Like"
+          variant="outlined"
+          color="neutral"
+          size="sm"
+          onClick={openHref}
+        >
+          <OpenInNewIcon />
+        </Button>
+      </Sheet>
+    </Card>
   );
 };
 

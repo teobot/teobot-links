@@ -1,11 +1,13 @@
 
 export enum LinkTypes {
+  INSPIRATION,
   COLOURS,
   DRAWING,
-  HELPER
+  HELPER,
+  ALL
 }
 
-interface ILink {
+export interface ILink {
   title: string;
   description: string;
   href: string;

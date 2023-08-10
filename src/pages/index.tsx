@@ -1,84 +1,113 @@
 import { useState } from "react";
 
-import { Link, LinkTypes } from "@/models/link.model";
+import { ILink } from "@/models/link.model";
 
-import { getScreenshot } from "@/helpers/getScreenshot";
+// data
+import getLinks from "../data/link.data";
+
+// mui
 import Grid from "@mui/joy/Grid";
 import Card from "@mui/joy/Card";
+import Typography from "@mui/joy/Typography";
+import Input from "@mui/joy/Input";
+import ClearIcon from "@mui/icons-material/Clear";
+import { Sheet } from "@mui/joy";
 
+// components
 import LinkCard from "@/components/LinkCard";
 
-export default function Home({ links }: { links: Link[] }) {
+export default function Home({ links }: { links: ILink[] }) {
   const [filter, setFilter] = useState<string>("");
-
-  const handleFilterPress = () => {};
+  const [search, setSearch] = useState<string>("");
 
   return (
-    <Grid container spacing={2} sx={{ flexGrow: 1 }}>
-      <Grid xs={8}>Hello World!</Grid>
-      <Grid xs={4}>
-        {[...links, ...links, ...links].map((link, index) => (
-          <Card key={index} />
-        ))}
+    <Grid container sx={{ my: 2 }}>
+      <Grid xs={2}>
+        <Sheet
+          sx={{
+            borderRight: "1px solid",
+            borderColor: "background.level1",
+            display: "flex",
+            flexDirection: "column",
+            gap: 2,
+            flex: 1,
+            p: 3,
+          }}
+        >
+          <Sheet
+            sx={{
+              borderBottom: "1px solid",
+              borderColor: "background.level1",
+              pb: 2,
+            }}
+          >
+            <Input
+              endDecorator={<ClearIcon onClick={() => setSearch("")} />}
+              size="lg"
+              placeholder="Search"
+              value={search}
+              onChange={(e) => setSearch(e.target.value)}
+            />
+          </Sheet>
+          {links
+            .reduce((acc, link): any => [...acc, ...link.tags], [])
+            .filter((tag, index, self) => self.indexOf(tag) === index)
+            .sort()
+            .map((tag) => {
+              const isSelected = filter === tag;
+              return (
+                <Card
+                  key={tag}
+                  variant={isSelected ? "soft" : "outlined"}
+                  sx={{
+                    width: "100%",
+                    // on hover
+                    "&:hover": {
+                      backgroundColor: "background.level2",
+                      cursor: "pointer",
+                    },
+                  }}
+                  onClick={() => setFilter(isSelected ? "" : tag)}
+                >
+                  <Typography
+                    level="title-md"
+                    sx={{
+                      //  capitalize
+                      textTransform: "capitalize",
+                    }}
+                  >
+                    {tag}
+                  </Typography>
+                </Card>
+              );
+            })}
+        </Sheet>
+      </Grid>
+      <Grid xs={10}>
+        <Sheet sx={{ display: "flex", gap: 5, flexWrap: "wrap", p: 2 }}>
+          {links
+            .filter((link) => {
+              if (filter === "") return true;
+              return link.tags.includes(filter);
+            })
+            .filter((link) => {
+              if (search === "") return true;
+              return link.title.toLowerCase().includes(search.toLowerCase());
+            })
+            .map((link, index) => (
+              <LinkCard key={index} link={link} />
+            ))}
+        </Sheet>
       </Grid>
     </Grid>
   );
 }
 
 export const getStaticProps = async () => {
-  // const links = [
-  //   new Link({
-  //     title: "Realtime Colours",
-  //     description:
-  //       "A realtime colour picker for seeing how colours look together on a realtime website.",
-  //     href: "https://realtimecolors.com/",
-  //     image: await getScreenshot("https://realtimecolors.com/"),
-  //     type: LinkTypes.COLOURS,
-  //     tags: ["colours", "palette"],
-  //   }),
-  //   new Link({
-  //     title: "Coolors",
-  //     description:
-  //       "A colour palette generator for creating colour palettes for websites.",
-  //     href: "https://coolors.co/",
-  //     image: await getScreenshot("https://coolors.co/"),
-  //     type: LinkTypes.COLOURS,
-  //     tags: ["colours", "palette"],
-  //   }),
-  //   new Link({
-  //     title: "Excalidraw",
-  //     description:
-  //       "A whiteboard for drawing diagrams and sharing them with others.",
-  //     href: "https://excalidraw.com/",
-  //     image: await getScreenshot("https://excalidraw.com/"),
-  //     type: LinkTypes.DRAWING,
-  //     tags: ["drawing", "diagrams", "whiteboard", "wire framing"],
-  //   }),
-  //   new Link({
-  //     title: "Figma",
-  //     description:
-  //       "A design tool for creating designs and sharing them with others.",
-  //     href: "https://www.figma.com/",
-  //     image: await getScreenshot("https://www.figma.com/"),
-  //     type: LinkTypes.DRAWING,
-  //     tags: ["drawing", "diagrams", "whiteboard", "wire framing"],
-  //   }),
-  //   new Link({
-  //     title: "Phind",
-  //     description:
-  //       "A AI powered search engine for finding answers to software development questions.",
-  //     href: " https://www.phind.com/",
-  //     image: await getScreenshot("https://www.phind.com/"),
-  //     type: LinkTypes.HELPER,
-  //     tags: ["search", "questions", "answers"],
-  //   }),
-  // ];
-
-  const fake_links = require("../data/links.data.json");
-
+  const links = await getLinks();
   return {
     props: {
-      links: JSON.parse(JSON.stringify(fake_links)),
+      links: JSON.parse(JSON.stringify(links)),
     },
   };
 };

@@ -1,9 +1,17 @@
+import type { AppProps } from "next/app";
+
+import useModal from "@/hooks/useModal";
+
 import "@/styles/globals.css";
 
 import "@fontsource/inter";
 
-import type { AppProps } from "next/app";
-
 export default function App({ Component, pageProps }: AppProps) {
-  return <Component {...pageProps} />;
+  const { ModalProvider } = useModal();
+
+  return (
+    <ModalProvider>
+      <Component {...pageProps} />
+    </ModalProvider>
+  );
 }
