@@ -15,8 +15,6 @@ import Card from "@mui/joy/Card";
 import Typography from "@mui/joy/Typography";
 import OpenInNewIcon from "@mui/icons-material/OpenInNew";
 import { Button, Sheet } from "@mui/joy";
-import Chip from "@mui/joy/Chip";
-import Box from "@mui/joy/Box";
 
 type LinkCardProps = { link: Link };
 

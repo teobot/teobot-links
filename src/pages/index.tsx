@@ -3,7 +3,10 @@ import { useState } from "react";
 import { ILink } from "@/models/link.model";
 
 // data
-import getLinks from "../data/link.data";
+import { linkData } from "@/data/linkData";
+
+// helpers
+import { getScreenshot } from "@/helpers/getScreenshot";
 
 // mui
 import Grid from "@mui/joy/Grid";
@@ -92,7 +95,18 @@ export default function Home({ links }: { links: ILink[] }) {
             })
             .filter((link) => {
               if (search === "") return true;
-              return link.title.toLowerCase().includes(search.toLowerCase());
+
+              // search in tags
+              if (
+                link.tags.some((tag) =>
+                  tag.toLowerCase().includes(search.toLowerCase())
+                )
+              )
+                return true;
+
+              // search in title
+              if (link.title.toLowerCase().includes(search.toLowerCase()))
+                return true;
             })
             .map((link, index) => (
               <LinkCard key={index} link={link} />
@@ -104,7 +118,13 @@ export default function Home({ links }: { links: ILink[] }) {
 }
 
 export const getStaticProps = async () => {
-  const links = await getLinks();
+  const links = await Promise.all(
+    linkData.map(async (link) => {
+      const screenshot = await getScreenshot(link.href);
+      return { ...link, image: screenshot };
+    })
+  );
+
   return {
     props: {
       links: JSON.parse(JSON.stringify(links)),
