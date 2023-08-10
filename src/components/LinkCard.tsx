@@ -14,7 +14,8 @@ import { Link } from "@/models/link.model";
 import Card from "@mui/joy/Card";
 import Typography from "@mui/joy/Typography";
 import OpenInNewIcon from "@mui/icons-material/OpenInNew";
-import { Button, Sheet } from "@mui/joy";
+import Button from "@mui/joy/Button";
+import Sheet from "@mui/joy/Sheet";
 
 type LinkCardProps = { link: Link };
 
