@@ -1,12 +1,9 @@
-import { LinkTypes } from "../models/link.model";
-
 export const linkData = [
     {
         title: "Realtime Colours",
         description:
             "A realtime colour picker for seeing how colours look together on a realtime website.",
         href: "https://realtimecolors.com/",
-        type: LinkTypes.COLOURS,
         tags: ["colours", "palette"],
     },
     {
@@ -14,7 +11,6 @@ export const linkData = [
         description:
             "A colour palette generator for creating colour palettes for websites.",
         href: "https://coolors.co/",
-        type: LinkTypes.COLOURS,
         tags: ["colours", "palette"],
     },
     {
@@ -22,31 +18,27 @@ export const linkData = [
         description:
             "A whiteboard for drawing diagrams and sharing them with others.",
         href: "https://excalidraw.com/",
-        type: LinkTypes.DRAWING,
-        tags: ["drawing", "diagrams", "whiteboard", "wire framing"],
+        tags: ["drawing", "diagrams", "whiteboard"],
     },
     {
         title: "Figma",
         description:
             "A design tool for creating designs and sharing them with others.",
         href: "https://www.figma.com/",
-        type: LinkTypes.DRAWING,
-        tags: ["drawing", "diagrams", "whiteboard", "wire framing", "prototype",],
+        tags: ["wire framing", "prototype",],
     },
     {
         title: "Phind",
         description:
             "A AI powered search engine for finding answers to software development questions.",
         href: " https://www.phind.com/",
-        type: LinkTypes.HELPER,
-        tags: ["search", "questions", "answers"],
+        tags: ["questions", "answers", "ai"],
     },
     {
         title: "Tiny PNG",
         description:
             "A tool for compressing images to make them smaller in size.",
         href: "https://tinypng.com/",
-        type: LinkTypes.HELPER,
         tags: ["images", "compress"],
     },
     {
@@ -54,7 +46,6 @@ export const linkData = [
         description:
             "A tool for checking browser support for HTML, CSS and JavaScript features.",
         href: "https://caniuse.com/",
-        type: LinkTypes.HELPER,
         tags: ["browser", "support"],
     },
     {
@@ -62,7 +53,6 @@ export const linkData = [
         description:
             "A tool for checking browser support for HTML, CSS and JavaScript features.",
         href: "https://developer.mozilla.org/en-US/",
-        type: LinkTypes.HELPER,
         tags: ["browser", "support"],
     },
     {
@@ -70,7 +60,41 @@ export const linkData = [
         description:
             `A tool for finding elements and getting inspiration for your next website.`,
         href: "https://stacksorted.com/",
-        type: LinkTypes.INSPIRATION,
-        tags: ["inspiration", "website", "elements"],
+        tags: ["inspiration", "elements"],
     },
+    {
+        title: "Temp Email",
+        description:
+            "A tool for creating a temporary email address for testing.",
+        href: "https://temp-mail.org/en/",
+        tags: ["email", "fake"],
+    },
+    {
+        title: "Material Theme Builder",
+        description:
+            "A tool for creating a custom Material theme for your website.",
+        href: "https://m3.material.io/theme-builder",
+        tags: ["colours", "theme"],
+    },
+    {
+        title: "Bard",
+        description:
+            "A conversant AI for answering questions about anything.",
+        href: "https://bard.google.com/",
+        tags: ["questions", "answers", "ai"],
+    },
+    {
+        title: "Chat GPT",
+        description:
+            "A conversant AI for answering questions about anything.",
+        href: "https://chat.openai.com/",
+        tags: ["questions", "answers", "ai"],
+    },
+    {
+        title: "Favicon",
+        description:
+            "A collection of useful conversion tools for working with images.",
+        href: "https://favicon.io/",
+        tags: ["images", "convert"],
+    }
 ];

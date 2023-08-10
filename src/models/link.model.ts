@@ -1,19 +1,9 @@
-
-export enum LinkTypes {
-  INSPIRATION,
-  COLOURS,
-  DRAWING,
-  HELPER,
-  ALL
-}
-
 export interface ILink {
   title: string;
   description: string;
   href: string;
   image?: string;
   tags: string[];
-  type: LinkTypes;
 }
 
 export class Link implements ILink {
@@ -22,7 +12,6 @@ export class Link implements ILink {
   href: string;
   image?: string;
   tags: string[];
-  type: LinkTypes;
 
   constructor(link: ILink) {
     this.title = link.title;
@@ -30,7 +19,6 @@ export class Link implements ILink {
     this.image = link.image;
     this.href = link.href;
     this.tags = link.tags;
-    this.type = link.type;
   }
 
 }
