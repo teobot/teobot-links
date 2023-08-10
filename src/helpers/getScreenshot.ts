@@ -15,7 +15,11 @@ export const getScreenshot = async (href: string) => {
         height: 1080 * 0.60,
     });
 
-    await page.waitForNetworkIdle();
+    try {
+        await page.waitForNetworkIdle();
+    } catch (error) {
+
+    }
 
     await page.waitForTimeout(2000);
 
