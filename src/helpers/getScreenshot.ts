@@ -16,18 +16,17 @@ export const getScreenshot = async (href: string) => {
     });
 
     try {
-        await page.waitForNetworkIdle();
+        await page.waitForNetworkIdle({
+            timeout: 10000,
+        });
     } catch (error) {
 
     }
-
-    await page.waitForTimeout(2000);
 
     const image = await page.screenshot({
         encoding: "base64",
         type: "jpeg",
         quality: 20,
-
     });
 
     await browser.close();
