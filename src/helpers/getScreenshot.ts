@@ -8,19 +8,21 @@ export const getScreenshot = async (href: string) => {
 
     const page = await browser.newPage();
 
-    await page.goto(href);
-
     await page.setViewport({
         width: 1920 * 0.60,
         height: 1080 * 0.60,
     });
 
+    await page.goto(href, {
+        waitUntil: "networkidle2",
+    })
+
     try {
         await page.waitForNetworkIdle({
-            timeout: 10000,
+            idleTime: 1000,
+            timeout: 5000,
         });
     } catch (error) {
-
     }
 
     const image = await page.screenshot({
