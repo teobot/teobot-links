@@ -1,6 +1,6 @@
 import { useState } from "react";
 
-import { ILink } from "@/models/link.model";
+import { Link as LinkModal, ILink } from "@/models/link.model";
 
 // data
 import { linkData } from "@/data/linkData";
@@ -157,12 +157,13 @@ export default function Home({ links }: { links: ILink[] }) {
 }
 
 export const getStaticProps = async () => {
-  const links = await Promise.all(
-    linkData.map(async (link) => {
-      const screenshot = await getScreenshot(link.href);
-      return { ...link, image: screenshot };
-    })
-  );
+  let links = [];
+
+  for (let i = 0; i < linkData.length; i++) {
+    const link = linkData[i];
+    const screenshot = await getScreenshot(link.href);
+    links.push(new LinkModal({ ...link, image: screenshot }));
+  }
 
   return {
     props: {

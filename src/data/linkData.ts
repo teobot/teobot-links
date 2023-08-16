@@ -1,5 +1,19 @@
 export const linkData = [
     {
+        title: "Chat PDF",
+        description:
+            "Your PDF AI - like ChatGPT but for PDFs. Summarize and answer questions for free.",
+        href: "https://www.chatpdf.com/",
+        tags: ["ai", "support"],
+    },
+    {
+        title: "Awesome Generative AI",
+        description:
+            "A collection of useful links for learning about generative AI, and useful AI tools.",
+        href: "https://github.com/steven2358/awesome-generative-ai",
+        tags: ["ai", "links"],
+    },
+    {
         title: "Realtime Colours",
         description:
             "A realtime colour picker for seeing how colours look together on a realtime website.",

@@ -8,26 +8,22 @@ export const getScreenshot = async (href: string) => {
 
     const page = await browser.newPage();
 
-    await page.goto(href);
-
     await page.setViewport({
         width: 1920 * 0.60,
         height: 1080 * 0.60,
     });
 
+    await page.goto(href)
+
     try {
         await page.waitForNetworkIdle();
     } catch (error) {
-
     }
-
-    await page.waitForTimeout(2000);
 
     const image = await page.screenshot({
         encoding: "base64",
         type: "jpeg",
         quality: 20,
-
     });
 
     await browser.close();
