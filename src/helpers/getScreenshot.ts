@@ -13,15 +13,10 @@ export const getScreenshot = async (href: string) => {
         height: 1080 * 0.60,
     });
 
-    await page.goto(href, {
-        waitUntil: "networkidle2",
-    })
+    await page.goto(href)
 
     try {
-        await page.waitForNetworkIdle({
-            idleTime: 1000,
-            timeout: 5000,
-        });
+        await page.waitForNetworkIdle();
     } catch (error) {
     }
 
