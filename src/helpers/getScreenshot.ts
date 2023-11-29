@@ -4,6 +4,9 @@ export const faviconToBase64 = async (href: string) => {
     try {
         const browser = await puppeteer.launch({
             headless: "new",
+            args: [
+                "--no-sandbox",
+            ],
         });
         const page = await browser.newPage();
 
@@ -39,6 +42,9 @@ export const getScreenshot = async (href: string) => {
 
     const browser = await puppeteer.launch({
         headless: "new",
+        args: [
+            "--no-sandbox",
+        ],
     });
 
     const page = await browser.newPage();
