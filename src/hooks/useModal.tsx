@@ -60,7 +60,7 @@ const useModal = () => {
             style={{ cursor: "pointer" }}
             onClick={() => window.open(clickedLink.href, "_blank")}
             src={clickedLink.image as string}
-            alt={clickedLink.title}
+            alt={clickedLink.title!}
             width={IMAGE_SIZE}
             height={(IMAGE_SIZE / RATIO[0]) * RATIO[1]}
           />
