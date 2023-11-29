@@ -1,29 +1,29 @@
-// react
-import { useContext } from "react";
-
 // next
 import Image from "next/image";
 
-// hooks
-import { ModalContext } from "@/hooks/useModal";
-
 // models
-import { Link } from "@/models/link.model";
+import { ILink } from "@/models/link.model";
 
 // mui
 import Card from "@mui/joy/Card";
+import CardOverflow from "@mui/joy/CardOverflow";
+import AspectRatio from "@mui/joy/AspectRatio";
+import CardContent from "@mui/joy/CardContent";
 import Typography from "@mui/joy/Typography";
-import OpenInNewIcon from "@mui/icons-material/OpenInNew";
+import Link from "@mui/joy/Link";
 import Button from "@mui/joy/Button";
-import Sheet from "@mui/joy/Sheet";
+import LanguageIcon from "@mui/icons-material/Language";
+import IconButton from "@mui/joy/IconButton";
 
-type LinkCardProps = { link: Link };
+type LinkCardProps = { link: ILink };
 
-const IMAGE_SIZE = 300;
+const IMAGE_SIZE = 375;
 const RATIO = [16, 9];
+const DESCRIPTION_LENGTH = 100;
+const ICON_SIZE = 35;
 
 const LinkCard = ({ link }: LinkCardProps) => {
-  const { openModal } = useContext(ModalContext);
+  // const { openModal } = useContext(ModalContext);
 
   const openHref = () => {
     //: open link in new tab
@@ -34,37 +34,103 @@ const LinkCard = ({ link }: LinkCardProps) => {
     <Card
       variant="outlined"
       sx={{
-        maxWidth: "min-content",
-        height: "min-content",
-        float: "left",
+        position: "relative",
+        maxWidth: IMAGE_SIZE,
+        minWidth: IMAGE_SIZE,
       }}
     >
-      <Image
-        style={{ cursor: "pointer" }}
-        onClick={() => openModal(link)}
-        src={link.image as string}
-        alt={link.title}
-        width={IMAGE_SIZE}
-        height={(IMAGE_SIZE / RATIO[0]) * RATIO[1]}
-      />
-      <Sheet
-        sx={{
-          display: "flex",
-          flexDirection: "col",
-          justifyContent: "space-between",
-        }}
-      >
-        <Typography level="title-lg">{link.title}</Typography>
-        <Button
-          aria-label="Like"
-          variant="outlined"
-          color="neutral"
-          size="sm"
-          onClick={openHref}
-        >
-          <OpenInNewIcon />
-        </Button>
-      </Sheet>
+      <CardOverflow>
+        <AspectRatio ratio={RATIO.join("/")}>
+          {/* new icon */}
+          <Image
+            style={{
+              cursor: "pointer",
+              minWidth: IMAGE_SIZE,
+              maxWidth: IMAGE_SIZE,
+              objectFit: "contain",
+            }}
+            onClick={openHref}
+            src={link.image as string}
+            alt={link.title!}
+            width={IMAGE_SIZE}
+            height={(IMAGE_SIZE / RATIO[0]) * RATIO[1]}
+          />
+        </AspectRatio>
+
+        {link.favicon ? (
+          <Image
+            onClick={openHref}
+            src={link.favicon! as string}
+            alt={link.title!}
+            width={ICON_SIZE}
+            height={ICON_SIZE}
+            style={{
+              filter: "drop-shadow(0px 0px 5px rgba(0, 0, 0, 1))",
+              position: "absolute",
+              zIndex: 2,
+              borderRadius: "50%",
+              right: "1rem",
+              bottom: 0,
+              transform: "translateY(50%)",
+            }}
+          />
+        ) : (
+          <IconButton
+            aria-label="Like minimal photography"
+            size="md"
+            variant="solid"
+            color="primary"
+            sx={{
+              position: "absolute",
+              zIndex: 2,
+              borderRadius: "50%",
+              right: "1rem",
+              bottom: 0,
+              transform: "translateY(50%)",
+              width: ICON_SIZE,
+              height: ICON_SIZE,
+            }}
+          >
+            <LanguageIcon />
+          </IconButton>
+        )}
+      </CardOverflow>
+      <CardContent>
+        {link.isNew && (
+          <Button
+            color="success"
+            variant="solid"
+            size="sm"
+            sx={{
+              position: "absolute",
+              top: "0.1rem",
+              right: "0.1rem",
+            }}
+          >
+            NEW
+          </Button>
+        )}
+
+        <Typography level="title-lg">
+          <Link
+            onClick={openHref}
+            underline="hover"
+            sx={{
+              width: "95%",
+              overflow: "hidden",
+              textOverflow: "ellipsis",
+              whiteSpace: "nowrap",
+              display: "inline-block",
+            }}
+          >
+            {link.title!}
+          </Link>
+        </Typography>
+        <Typography level="body-sm">
+          {link.description!.substring(0, DESCRIPTION_LENGTH)}
+          {link.description!.length > DESCRIPTION_LENGTH && "..."}
+        </Typography>
+      </CardContent>
     </Card>
   );
 };
