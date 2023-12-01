@@ -2,49 +2,49 @@ import { ILink } from "@/models/link.model";
 
 export const linkData: ILink[] = [
     {
-        uploadedDate: new Date("2023-11-23"),
+        uploadedDate: new Date("2023-12-01"),
         href: "https://mockupz.design/",
         tags: ["mockups", "design", "inspiration"],
     },
     {
-        uploadedDate: new Date("2023-11-23"),
+        uploadedDate: new Date("2023-12-01"),
         href: "https://footer.design/",
         tags: ["footers", "design", "inspiration"],
     },
     {
-        uploadedDate: new Date("2023-11-23"),
+        uploadedDate: new Date("2023-12-01"),
         href: "https://is.graphics/",
         tags: ["illustrations", "design"],
     },
     {
-        uploadedDate: new Date("2023-11-23"),
+        uploadedDate: new Date("2023-12-01"),
         href: "https://www.shadergradient.co/",
         tags: ["gradients", "design"],
     },
     {
-        uploadedDate: new Date("2023-11-23"),
+        uploadedDate: new Date("2023-12-01"),
         href: "https://www.charco.design/",
         tags: ["illustrations", "design"],
     },
     {
-        uploadedDate: new Date("2023-11-23"),
+        uploadedDate: new Date("2023-12-01"),
         href: "https://www.freefaces.gallery/",
         tags: ["fonts"],
     },
     {
-        uploadedDate: new Date("2023-11-23"),
+        uploadedDate: new Date("2023-12-01"),
         href: "https://wannathis.one/",
         tags: ["colours", "theme"],
     },
     {
-        uploadedDate: new Date("2023-11-23"),
+        uploadedDate: new Date("2023-12-01"),
         href: "https://99designs.com/",
         tags: ["design", "inspiration"],
 
     },
     {
 
-        uploadedDate: new Date("2023-11-23"),
+        uploadedDate: new Date("2023-12-01"),
         href: "https://stackedit.io/",
         tags: ["markdown", "convert"],
     },

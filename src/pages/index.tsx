@@ -13,7 +13,7 @@ import { Link as LinkModal, ILink } from "@/models/link.model";
 import { linkData } from "@/data/linkData";
 
 // helpers
-import { getScreenshot, faviconToBase64 } from "@/helpers/getScreenshot";
+import { getScreenshot } from "@/helpers/getScreenshot";
 
 // mui
 import Stack from "@mui/joy/Stack";
@@ -21,6 +21,7 @@ import Typography from "@mui/joy/Typography";
 import Box from "@mui/joy/Box";
 import Divider from "@mui/joy/Divider";
 import Chip from "@mui/joy/Chip";
+import Container from "@mui/joy/Container";
 
 // images
 import logo from "@/images/logo.png";
@@ -30,7 +31,8 @@ import LinkCard from "@/components/LinkCard";
 
 // lib imports
 import { compareAsc } from "date-fns";
-import { Container } from "@mui/joy";
+import fs from "fs";
+import path from "path";
 
 export default function Home({ links }: { links: ILink[] }) {
   const [filter, setFilter] = useState<string>("");
@@ -154,31 +156,52 @@ export default function Home({ links }: { links: ILink[] }) {
 }
 
 export const getStaticProps = async () => {
-  let links = [];
+  const LOAD_FROM_JSON = true;
+  const UPDATE_JSON = false;
 
-  const FROM = 0;
-  const TO = linkData.length;
-
-  for (let i = FROM; i < TO; i++) {
-    const link = linkData[i];
-    const { screenshot, description, title, favicon } = await getScreenshot(
-      link.href
-    );
-    console.log(`Current Progress: ${i + 1}/${TO}`);
-    links.push(
-      new LinkModal({
-        ...link,
-        image: screenshot,
-        title: link.title ? link.title : title,
-        description: link.description ? link.description : description,
-        favicon: favicon,
-      })
-    );
+  if (LOAD_FROM_JSON) {
+    const filePath = path.join(process.cwd(), "/src/data/links.json");
+    const jsonData = fs.readFileSync(filePath, "utf8");
+    const links = JSON.parse(jsonData);
+    return {
+      props: {
+        links,
+      },
+    };
   }
 
-  return {
-    props: {
-      links: JSON.parse(JSON.stringify(links)),
-    },
-  };
+  if (UPDATE_JSON) {
+    const links: any = [];
+    const FROM = 0;
+    const TO = linkData.length;
+
+    for (let i = FROM; i < TO; i++) {
+      const link = linkData[i];
+      const { screenshot, description, title, favicon } = await getScreenshot(
+        link.href
+      );
+      console.log(`Current Progress: ${i + 1}/${TO}`);
+      links.push(
+        new LinkModal({
+          ...link,
+          image: screenshot,
+          title: link.title ? link.title : title,
+          description: link.description ? link.description : description,
+          favicon: favicon,
+        })
+      );
+    }
+
+    // save it to a file in the /data folder
+    fs.writeFileSync(
+      path.join(process.cwd(), "src/data/links.json"),
+      JSON.stringify(links)
+    );
+
+    return {
+      props: {
+        links: JSON.parse(JSON.stringify(links)),
+      },
+    };
+  }
 };
