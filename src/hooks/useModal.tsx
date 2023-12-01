@@ -9,22 +9,22 @@ import ModalDialog from "@mui/joy/ModalDialog";
 import Chip from "@mui/joy/Chip";
 import Box from "@mui/joy/Box";
 
-import { Link } from "@/models/link.model";
+import { ILink } from "@/models/link.model";
 
 const IMAGE_SIZE = 500;
 const RATIO = [16, 9];
 
 export const ModalContext = createContext<{
   open: boolean;
-  openModal: (link: Link) => void;
+  openModal: (link: ILink) => void;
   closeModal: () => void;
 }>({ open: false, openModal: () => {}, closeModal: () => {} });
 
 const useModal = () => {
   const [open, setOpen] = useState<boolean>(false);
-  const [clickedLink, setClickedLink] = useState<Link | null>(null);
+  const [clickedLink, setClickedLink] = useState<ILink | null>(null);
 
-  const openModal = (_link: Link) => {
+  const openModal = (_link: ILink) => {
     setClickedLink(_link);
   };
 
@@ -60,7 +60,7 @@ const useModal = () => {
             style={{ cursor: "pointer" }}
             onClick={() => window.open(clickedLink.href, "_blank")}
             src={clickedLink.image as string}
-            alt={clickedLink.title}
+            alt={clickedLink.title!}
             width={IMAGE_SIZE}
             height={(IMAGE_SIZE / RATIO[0]) * RATIO[1]}
           />
